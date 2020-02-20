@@ -1,0 +1,46 @@
+{
+	"name": "@databank/ractive-datatable",
+	"version": "0.0.1",
+	"description": "ractivejs component ",
+	"main": "dist/ractive-datatable.min.js",
+	"scripts": {
+		"dev": "docker run -it --rm -v $PWD:/usr/share/nginx/html -p 8888:80 nginx",
+		"start": "webpack -w --config webpack.browser.js",
+		"build": "webpack --config webpack.browser.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/databank/ractive-datatable.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/databank/ractive-datatable/issues"
+	},
+	"homepage": "https://github.com/databank/ractive-datatable#readme",
+	"devDependencies": {
+		"ractive": "^1.3.8",
+
+		"babel-core": "^6.26.3",
+		"babel-loader": "^7.1.5",
+		"babel-plugin-syntax-dynamic-import": "^6.18.0",
+		"babel-preset-env": "^1.7.0",
+		"babel-preset-es2015": "^6.24.1",
+
+		"webpack": "^4.41.0",
+		"webpack-cli": "^3.3.9",
+
+		"terser-webpack-plugin": "^2.3.1",
+		"copy-webpack-plugin": "^5.1.1",
+
+
+		"less": "^3.10.3",
+		"less-loader": "^5.0.0",
+		"css-loader": "^3.4.0",
+		"mini-css-extract-plugin": "^0.9.0"
+
+	},
+	"dependencies": {
+
+	}
+}
