@@ -7,7 +7,13 @@ export default Ractive.extend({
 		<div class='databank-datatable theme-{{theme}}' style='{{style}}'>
 			<div class='tabledatahead'>
 				{{#columns:i}}
-					<div style='width: {{#if i === 0}}32px{{else}}{{100/columns.length}}%{{/if}} '>{{.}}</div>
+					<div style='width: {{#if i === 0}}32px{{else}}{{100/columns.length}}%{{/if}} ' data-columns="{{columns.length}}">
+						{{#if i === 0}}
+							<input class='input-checkbox' type='checkbox' checked={{selectall}} >
+						{{else}}
+							{{.}}
+						{{/if}}
+					</div>
 				{{/columns}}
 			</div>
 			<div class='tabledatacontent'>
@@ -61,13 +67,29 @@ export default Ractive.extend({
 		</div>
 		`
 	,
-	data: function() { return {} },
-	oninit: function() {
-		this.on('cellclick', function( e ) {
-			var col = this.get( e.resolve() )
-			//console.log("cellclick", e.resolve(), " = ",this.get( e.resolve())  )
-			//console.log( this.get(e.resolve().split('.').slice(0,-1).join('.')) )
-			this.fire('colclick', undefined, col.item, col.raw )
-		})
+	data: function() { return {
+		selectall: false,
+	} },
+	on: {
+		init() {
+			this.on('cellclick', function( e ) {
+				var col = this.get( e.resolve() )
+				//console.log("cellclick", e.resolve(), " = ",this.get( e.resolve())  )
+				//console.log( this.get(e.resolve().split('.').slice(0,-1).join('.')) )
+				this.fire('colclick', undefined, col.item, col.raw )
+			})
+			this.observe('selectall', function(n,o,keypath) {
+				if (n)
+					return this.set('rows', this.get('rows').map(function(r) {
+						r[0].selected = true
+						return r;
+					}))
+
+				this.set('rows', this.get('rows').map(function(r) {
+					delete r[0].selected;
+					return r;
+				}))
+			}, {init: false})
+		}
 	}
 })
