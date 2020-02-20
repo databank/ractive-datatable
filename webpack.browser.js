@@ -51,6 +51,7 @@ module.exports = {
 		},
 	},
 	plugins: [
+		new MiniCssExtractPlugin({ filename: "[name].css" }), // { filename: "[name].[contentHash].css" }
 	],
 	module: {
 		rules: [
