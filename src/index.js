@@ -43,7 +43,7 @@ export default Ractive.extend({
 						style='width:{{#if checkboxes }}calc( 100%/{{columns.length}} - {{ Math.ceil(32/columns.length) }}px ){{else}}{{Math.floor(100/columns.length)}}%{{/if}}'
 						class='tabledatacell
 						{{#if .KEY}}t-K{{/if}}
-						{{#if .HASH}}t-HASH{{/if}}
+						{{#if .HREF}}t-HASH{{/if}}
 						{{#if .S}}t-S{{/if}}
 						{{#if .N}}t-N{{/if}}
 						{{#if .BOOL}}t-BOOL{{/if}}
@@ -52,12 +52,9 @@ export default Ractive.extend({
 						{{#if .M}}t-M{{/if}}
 						{{#if .U}}t-U{{/if}}
 						'
-						{{#if .HASH}}on-click='cellclick'{{/if}}
+						{{#if .HREF}}on-click='cellclick'{{/if}}
 						>
-						{{#if .KEY}}
-							<input class='input-checkbox' type='checkbox' checked={{.selected}} >
-						{{/if}}
-						{{#if .HASH}}<a>{{.HASH}}</a>{{/if}}
+						{{#if .HREF}}<a>{{.display || .HREF}}</a>{{/if}}
 						{{#if .S}}{{.S}}{{/if}}
 						{{#if .N}}{{.N}}{{else}}{{#if .N === 0}}0{{/if}}{{/if}}
 						{{#if .BOOL}}{{.BOOL}}{{/if}}
