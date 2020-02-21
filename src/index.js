@@ -6,6 +6,12 @@ export default Ractive.extend({
 	template: `
 		<div class='databank-datatable theme-{{theme}}' style='{{style}}'>
 			<div class='tabledatahead'>
+				{{#if checkboxes}}
+					<div style='width: 32px'>
+						<input class='input-checkbox' type='checkbox' checked={{selectall}} >
+					</div>
+				{{/if}}
+
 				{{#columns:i}}
 					<div style='width: {{100/columns.length}}%' data-columns="{{columns.length}}">
 						{{.}}
@@ -27,6 +33,11 @@ export default Ractive.extend({
 
 				{{#rows:row}}
 				<div class='tabledatarow {{#if .[0].selected}}selected{{/if}}' on-click='selectrow'>
+					{{#if checkboxes}}
+						<div class='tabledatacell'>
+							<input class='input-checkbox' type='checkbox' checked={{.selected}} >
+						</div>
+					{{/if}}
 					{{#each .:i}}
 					<div class='tabledatacell
 						{{#if .KEY}}t-K{{/if}}
