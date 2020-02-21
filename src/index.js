@@ -7,13 +7,15 @@ export default Ractive.extend({
 		<div class='databank-datatable theme-{{theme}}' style='{{style}}'>
 			<div class='tabledatahead'>
 				{{#if checkboxes}}
-					<div style='width: 32px'>
+					<div style='width: {{checkbox_width}}px'>
+						{{#if multiselect}}
 						<input class='input-checkbox' type='checkbox' checked={{selectall}} >
+						{{/if}}
 					</div>
 				{{/if}}
 
 				{{#columns:i}}
-					<div style='width:{{#if checkboxes }}calc( 100%/{{columns.length}} - {{ Math.ceil(32/columns.length) }}px ){{else}}{{Math.floor(100/columns.length)}}%{{/if}}'>
+					<div style='width:{{#if checkboxes }}calc( 100%/{{columns.length}} - {{ Math.ceil( ~/checkbox_width / columns.length) }}px ){{else}}{{Math.floor(100/columns.length)}}%{{/if}}'>
 						{{.}}
 					</div>
 				{{/columns}}
@@ -34,13 +36,13 @@ export default Ractive.extend({
 				{{#rows:row}}
 				<div class='tabledatarow {{#if .[0].selected}}selected{{/if}}' on-click='selectrow'>
 					{{#if checkboxes}}
-						<div class='tabledatacell' style="width: 32px;">
+						<div class='tabledatacell' style="width: {{checkbox_width}}px;">
 							<input class='input-checkbox' type='checkbox' checked={{~/rows[row][0].selected}} >
 						</div>
 					{{/if}}
 					{{#each .:i}}
 					<div
-						style='width:{{#if checkboxes }}calc( 100%/{{columns.length}} - {{ Math.ceil(32/columns.length) }}px ){{else}}{{Math.floor(100/columns.length)}}%{{/if}}'
+						style='width:{{#if checkboxes }}calc( 100%/{{columns.length}} - {{ Math.ceil( ~/checkbox_width / columns.length) }}px ){{else}}{{Math.floor(100/columns.length)}}%{{/if}}'
 						class='tabledatacell
 						{{#if .KEY}}t-K{{/if}}
 						{{#if .HREF}}t-HASH{{/if}}
@@ -52,7 +54,7 @@ export default Ractive.extend({
 						{{#if .M}}t-M{{/if}}
 						{{#if .U}}t-U{{/if}}
 						'
-						{{#if .HREF}}on-click='cellclick'{{/if}}
+						{{#if .HREF}}on-click='hrefclick'{{/if}}
 						>
 						{{#if .HREF}}<a>{{.display || .HREF}}</a>{{/if}}
 						{{#if .S}}{{.S}}{{/if}}
@@ -71,14 +73,21 @@ export default Ractive.extend({
 	,
 	data: function() { return {
 		selectall: false,
+		checkbox_width: 28,
 	} },
 	on: {
 		init() {
-			this.on('cellclick', function( e ) {
+
+			var ractive=this;
+
+			this.on('hrefclick', function( e ) {
+
 				var col = this.get( e.resolve() )
-				//console.log("cellclick", e.resolve(), " = ",this.get( e.resolve())  )
+
+
+				console.log("hrefclick", e.resolve(), " = ",this.get( e.resolve())  )
 				//console.log( this.get(e.resolve().split('.').slice(0,-1).join('.')) )
-				this.fire('colclick', undefined, col.item, col.raw )
+				//this.fire('colclick', undefined, col.item, col.raw )
 			})
 			this.observe('selectall', function(n,o,keypath) {
 				if (n)
@@ -92,6 +101,30 @@ export default Ractive.extend({
 					return r;
 				}))
 			}, {init: false})
+
+			this.observe('rows.*.0.selected', function( n,o,kp) {
+
+				console.log( kp, n )
+
+				if (n && this.get('multiselect') === false ) {
+					var target_idx = parseInt(kp.split('.')[1]);
+					console.log('must unselect all except', target_idx )
+
+					setTimeout(function() {
+						ractive.set('rows', ractive.get('rows').map(function(r, idx ) {
+							if ( target_idx === idx )
+								return r; // skip
+
+							// unselect all others
+							r[0].selected = false;
+							return r;
+						}) )
+					},200)
+
+
+				}
+			}, {init: false})
+
 		}
 	}
 })
