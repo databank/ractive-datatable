@@ -7,12 +7,8 @@ export default Ractive.extend({
 		<div class='databank-datatable theme-{{theme}}' style='{{style}}'>
 			<div class='tabledatahead'>
 				{{#columns:i}}
-					<div style='width: {{#if i === 0}}32px{{else}}{{100/columns.length}}%{{/if}} ' data-columns="{{columns.length}}">
-						{{#if i === 0}}
-							<input class='input-checkbox' type='checkbox' checked={{selectall}} >
-						{{else}}
-							{{.}}
-						{{/if}}
+					<div style='width: {{100/columns.length}}%' data-columns="{{columns.length}}">
+						{{.}}
 					</div>
 				{{/columns}}
 			</div>
@@ -42,15 +38,11 @@ export default Ractive.extend({
 						{{#if .L}}t-L{{/if}}
 						{{#if .M}}t-M{{/if}}
 						{{#if .U}}t-U{{/if}}
-						' style='width: {{#if i === 0}}32px{{else}}{{100/columns.length}}%{{/if}} '
+						' style='width: {{100/columns.length}}% '
 						{{#if .HASH}}on-click='cellclick'{{/if}}
 						>
 						{{#if .KEY}}
-							{{#if .selected}}
-								<input class='input-checkbox' type='checkbox' checked>
-							{{else}}
-								<input class='input-checkbox' type='checkbox'>
-							{{/if}}
+							<input class='input-checkbox' type='checkbox' checked={{.selected}} >
 						{{/if}}
 						{{#if .HASH}}<a>{{.HASH}}</a>{{/if}}
 						{{#if .S}}{{.S}}{{/if}}
