@@ -13,7 +13,7 @@ export default Ractive.extend({
 				{{/if}}
 
 				{{#columns:i}}
-					<div style='width: {{100/columns.length}}%'>
+					<div style='width:{{#if checkboxes }}calc( 100%/{{columns.length}} - {{ Math.ceil(32/columns.length) }}px ){{else}}{{Math.floor(100/columns.length)}}%{{/if}}'>
 						{{.}}
 					</div>
 				{{/columns}}
@@ -39,7 +39,9 @@ export default Ractive.extend({
 						</div>
 					{{/if}}
 					{{#each .:i}}
-					<div class='tabledatacell
+					<div
+						style='width:{{#if checkboxes }}calc( 100%/{{columns.length}} - {{ Math.ceil(32/columns.length) }}px ){{else}}{{Math.floor(100/columns.length)}}%{{/if}}'
+						class='tabledatacell
 						{{#if .KEY}}t-K{{/if}}
 						{{#if .HASH}}t-HASH{{/if}}
 						{{#if .S}}t-S{{/if}}
@@ -49,7 +51,7 @@ export default Ractive.extend({
 						{{#if .L}}t-L{{/if}}
 						{{#if .M}}t-M{{/if}}
 						{{#if .U}}t-U{{/if}}
-						' style='width: {{100/columns.length}}% '
+						'
 						{{#if .HASH}}on-click='cellclick'{{/if}}
 						>
 						{{#if .KEY}}
