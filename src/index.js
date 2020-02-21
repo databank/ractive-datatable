@@ -13,7 +13,7 @@ export default Ractive.extend({
 				{{/if}}
 
 				{{#columns:i}}
-					<div style='width: {{100/columns.length}}%' data-columns="{{columns.length}}">
+					<div style='width: {{100/columns.length}}%'>
 						{{.}}
 					</div>
 				{{/columns}}
