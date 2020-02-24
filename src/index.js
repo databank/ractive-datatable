@@ -2,6 +2,23 @@
 import './less/style.less';
 
 export default Ractive.extend({
+
+	columns_length() {
+		var shown_columns = this.get('columns').filter(function( c ) {
+
+			if (typeof c === "string")
+				return true;
+
+			if ( (typeof c === "object") && (c.hide !== true ) )
+				return true;
+
+			return false;
+
+		})
+
+		return shown_columns.length
+	},
+
 	template: `
 		<div class='databank-datatable theme-{{theme}}' style='{{style}}'>
 			<div class='tabledatahead'>
@@ -14,13 +31,16 @@ export default Ractive.extend({
 				{{/if}}
 
 				{{#columns:i}}
-					<div style='width:{{#if checkboxes }}calc( 100%/{{columns.length}} - {{ Math.ceil( ~/checkbox_width / columns.length) }}px ){{else}}{{Math.floor(100/columns.length)}}%{{/if}}'>
-						{{#if typeof . === "object"}}
-							{{.display}}
-						{{else}}
-						{{.}}
-						{{/if}}
-					</div>
+					{{#if (typeof . === "object") && (.hide === true) }}
+					{{else}}
+						<div style='width:{{#if checkboxes }}calc( 100%/{{ @this.columns_length() }} - {{ Math.ceil( ~/checkbox_width / @this.columns_length() ) }}px ){{else}}{{Math.floor(100/ @this.columns_length()  )}}%{{/if}}'>
+							{{#if typeof . === "object"}}
+								{{.display}}
+							{{else}}
+							{{.}}
+							{{/if}}
+						</div>
+					{{/if}}
 				{{/columns}}
 			</div>
 			<div class='tabledatacontent'>
@@ -37,38 +57,54 @@ export default Ractive.extend({
 				{{/if}}
 
 				{{#rows:row}}
+
+
 				<div class='tabledatarow {{#if .[0].selected}}selected{{/if}}' on-click='selectrow'>
 					{{#if checkboxes}}
 						<div class='tabledatacell check' style="width: {{checkbox_width}}px;" on-click="select">
 							<input class='input-checkbox' type='checkbox' checked={{~/rows[row][0].selected}} >
 						</div>
 					{{/if}}
+
+
+
+
 					{{#each .:i}}
-					<div
-						style='width:{{#if checkboxes }}calc( 100%/{{columns.length}} - {{ Math.ceil( ~/checkbox_width / columns.length) }}px ){{else}}{{Math.floor(100/columns.length)}}%{{/if}}'
-						class='tabledatacell
-						{{#if .KEY}}t-K{{/if}}
-						{{#if .HREF}}t-HASH{{/if}}
-						{{#if .S}}t-S{{/if}}
-						{{#if .N}}t-N{{/if}}
-						{{#if .BOOL}}t-BOOL{{/if}}
-						{{#if .NULL}}t-NULL{{/if}}
-						{{#if .L}}t-L{{/if}}
-						{{#if .M}}t-M{{/if}}
-						{{#if .U}}t-U{{/if}}
-						'
-						{{#if .HREF}}on-click='hrefclick'{{/if}}
-						>
-						{{#if .HREF}}<a>{{.display || .HREF}}</a>{{/if}}
-						{{#if .S}}{{.S}}{{/if}}
-						{{#if .N}}{{.N}}{{else}}{{#if .N === 0}}0{{/if}}{{/if}}
-						{{#if .BOOL}}{{.BOOL}}{{/if}}
-						{{#if .NULL}}NULL{{/if}}
-						{{#if .L}}[...]{{/if}}
-						{{#if .M}}{...}{{/if}}
-					</div>
+
+					{{#if (typeof ~/columns[i] === "object")  && (~/columns[i].hide === true) }}
+					{{else}}
+						<div
+							style='width:{{#if checkboxes }}calc( 100%/{{ @this.columns_length() }} - {{ Math.ceil( ~/checkbox_width / @this.columns_length() ) }}px ){{else}}{{Math.floor(100/ @this.columns_length() )}}%{{/if}}'
+							class='tabledatacell
+							{{#if .KEY}}t-K{{/if}}
+							{{#if .HREF}}t-HASH{{/if}}
+							{{#if .S}}t-S{{/if}}
+							{{#if .N}}t-N{{/if}}
+							{{#if .BOOL}}t-BOOL{{/if}}
+							{{#if .NULL}}t-NULL{{/if}}
+							{{#if .L}}t-L{{/if}}
+							{{#if .M}}t-M{{/if}}
+							{{#if .U}}t-U{{/if}}
+							'
+							{{#if .HREF}}on-click='hrefclick'{{/if}}
+							>
+							{{#if .HREF}}<a>{{.display || .HREF}}</a>{{/if}}
+							{{#if .S}}{{.S}}{{/if}}
+							{{#if .N}}{{.N}}{{else}}{{#if .N === 0}}0{{/if}}{{/if}}
+							{{#if .BOOL}}{{.BOOL}}{{/if}}
+							{{#if .NULL}}NULL{{/if}}
+							{{#if .L}}[...]{{/if}}
+							{{#if .M}}{...}{{/if}}
+						</div>
+					{{/if}}
+
+
+
 					{{/each}}
 				</div>
+
+
+
 				{{/rows}}
 			</div>
 		</div>
