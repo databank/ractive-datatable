@@ -66,41 +66,40 @@ export default Ractive.extend({
 						</div>
 					{{/if}}
 
+					{{#columns:i}}
+						{{#if (typeof . === "object") && (.hide === true) }}
+						{{else}}
+							<div
+								style='width:{{#if checkboxes }}calc( 100%/{{ @this.columns_length() }} - {{ Math.ceil( ~/checkbox_width / @this.columns_length() ) }}px ){{else}}{{Math.floor(100/ @this.columns_length() )}}%{{/if}}'
+								class='tabledatacell
+								{{#if ~/rows[row][.field].hasOwnProperty('KEY')  }}t-K{{/if}}
+								{{#if ~/rows[row][.field].hasOwnProperty('HREF') }}t-HASH{{/if}}
+								{{#if ~/rows[row][.field].hasOwnProperty('S')    }}t-S{{/if}}
+								{{#if ~/rows[row][.field].hasOwnProperty('N')    }}t-N{{/if}}
+								{{#if ~/rows[row][.field].hasOwnProperty('BOOL') }}t-BOOL{{/if}}
+								{{#if ~/rows[row][.field].hasOwnProperty('NULL') }}t-NULL{{/if}}
+								{{#if ~/rows[row][.field].hasOwnProperty('L')    }}t-L{{/if}}
+								{{#if ~/rows[row][.field].hasOwnProperty('M')    }}t-M{{/if}}
+								{{#if .U}}t-U{{/if}}
+								'
+								{{#if ~/rows[row][.field].hasOwnProperty('HREF') }}on-click='hrefclick'{{/if}}
+								>
+								{{#if typeof . === "object"}}
+									{{#if ~/rows[row][.field].hasOwnProperty('HREF') }}<a>{{~/rows[row][.field].display || ~/rows[row][.field].HREF}}</a>{{/if}}
+									{{#if ~/rows[row][.field].hasOwnProperty('S')    }}{{ ~/rows[row][.field].S    }}{{/if}}
+									{{#if ~/rows[row][.field].hasOwnProperty('N')    }}{{ ~/rows[row][.field].N    }}{{/if}}
+									{{#if ~/rows[row][.field].hasOwnProperty('BOOL') }}{{ ~/rows[row][.field].BOOL }}{{/if}}
+									{{#if ~/rows[row][.field].hasOwnProperty('NULL') }}NULL{{/if}}
+									{{#if .L}}[...]{{/if}}
+									{{#if .M}}{...}{{/if}}
 
+								{{else}}
+									{{.}}
+								{{/if}}
+							</div>
+						{{/if}}
+					{{/columns}}
 
-
-					{{#each .:i}}
-
-					{{#if (typeof ~/columns[i] === "object")  && (~/columns[i].hide === true) }}
-					{{else}}
-						<div
-							style='width:{{#if checkboxes }}calc( 100%/{{ @this.columns_length() }} - {{ Math.ceil( ~/checkbox_width / @this.columns_length() ) }}px ){{else}}{{Math.floor(100/ @this.columns_length() )}}%{{/if}}'
-							class='tabledatacell
-							{{#if .KEY}}t-K{{/if}}
-							{{#if .HREF}}t-HASH{{/if}}
-							{{#if .S}}t-S{{/if}}
-							{{#if .N}}t-N{{/if}}
-							{{#if .BOOL}}t-BOOL{{/if}}
-							{{#if .NULL}}t-NULL{{/if}}
-							{{#if .L}}t-L{{/if}}
-							{{#if .M}}t-M{{/if}}
-							{{#if .U}}t-U{{/if}}
-							'
-							{{#if .HREF}}on-click='hrefclick'{{/if}}
-							>
-							{{#if .HREF}}<a>{{.display || .HREF}}</a>{{/if}}
-							{{#if .S}}{{.S}}{{/if}}
-							{{#if .N}}{{.N}}{{else}}{{#if .N === 0}}0{{/if}}{{/if}}
-							{{#if .BOOL}}{{.BOOL}}{{/if}}
-							{{#if .NULL}}NULL{{/if}}
-							{{#if .L}}[...]{{/if}}
-							{{#if .M}}{...}{{/if}}
-						</div>
-					{{/if}}
-
-
-
-					{{/each}}
 				</div>
 
 
