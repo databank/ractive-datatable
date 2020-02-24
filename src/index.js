@@ -77,9 +77,13 @@ export default Ractive.extend({
 								{{#if ~/rows[row][.field].hasOwnProperty('S')    }}t-S{{/if}}
 								{{#if ~/rows[row][.field].hasOwnProperty('N')    }}t-N{{/if}}
 								{{#if ~/rows[row][.field].hasOwnProperty('BOOL') }}t-BOOL{{/if}}
+								{{#if ~/rows[row][.field].hasOwnProperty('B')    }}t-B{{/if}}
 								{{#if ~/rows[row][.field].hasOwnProperty('NULL') }}t-NULL{{/if}}
 								{{#if ~/rows[row][.field].hasOwnProperty('L')    }}t-L{{/if}}
 								{{#if ~/rows[row][.field].hasOwnProperty('M')    }}t-M{{/if}}
+								{{#if ~/rows[row][.field].hasOwnProperty('SS')   }}t-SS{{/if}}
+								{{#if ~/rows[row][.field].hasOwnProperty('NS')   }}t-NS{{/if}}
+								{{#if ~/rows[row][.field].hasOwnProperty('BS')   }}t-BS{{/if}}
 								{{#if .U}}t-U{{/if}}
 								'
 								{{#if ~/rows[row][.field].hasOwnProperty('HREF') }}on-click='hrefclick'{{/if}}
@@ -89,11 +93,13 @@ export default Ractive.extend({
 									{{#if ~/rows[row][.field].hasOwnProperty('S')    }}{{ ~/rows[row][.field].S    }}{{/if}}
 									{{#if ~/rows[row][.field].hasOwnProperty('N')    }}{{ ~/rows[row][.field].N    }}{{/if}}
 									{{#if ~/rows[row][.field].hasOwnProperty('BOOL') }}{{ ~/rows[row][.field].BOOL }}{{/if}}
+									{{#if ~/rows[row][.field].hasOwnProperty('B')    }}binary{{/if}}
 									{{#if ~/rows[row][.field].hasOwnProperty('NULL') }}NULL{{/if}}
 									{{#if ~/rows[row][.field].hasOwnProperty('L')    }}[...]{{/if}}
 									{{#if ~/rows[row][.field].hasOwnProperty('M')    }}{...}{{/if}}
-									{{#if ~/rows[row][.field].hasOwnProperty('SS')   }}StringSet[..]{{/if}}
-									{{#if ~/rows[row][.field].hasOwnProperty('NS')   }}NumberSet[..]{{/if}}
+									{{#if ~/rows[row][.field].hasOwnProperty('SS')   }}StringSet{{/if}}
+									{{#if ~/rows[row][.field].hasOwnProperty('NS')   }}NumberSet{{/if}}
+									{{#if ~/rows[row][.field].hasOwnProperty('BS')   }}BinarySet{{/if}}
 								{{else}}
 									{{.}}
 								{{/if}}
