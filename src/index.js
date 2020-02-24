@@ -122,7 +122,6 @@ export default Ractive.extend({
 		selection: [],
 	} },
 	hrefclick( item, col ) {
-		console.log( item, col )
 		this.fire('href', this, item, col )
 	},
 	on: {
