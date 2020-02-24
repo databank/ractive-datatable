@@ -62,7 +62,7 @@ export default Ractive.extend({
 				<div class='tabledatarow {{#if .[0].selected}}selected{{/if}}' on-click='selectrow'>
 					{{#if checkboxes}}
 						<div class='tabledatacell check' style="width: {{checkbox_width}}px;" on-click="select">
-							<input class='input-checkbox' type='checkbox' checked={{~/rows[row][0].selected}} >
+							<input class='input-checkbox' type='checkbox' checked={{~/selection[row].selected}} >
 						</div>
 					{{/if}}
 
@@ -119,6 +119,7 @@ export default Ractive.extend({
 	data: function() { return {
 		selectall: false,
 		checkbox_width: 28,
+		selection: [],
 	} },
 	on: {
 		init() {
@@ -128,33 +129,29 @@ export default Ractive.extend({
 			})
 			this.observe('selectall', function(n,o,keypath) {
 				if (n)
-					return this.set('rows', this.get('rows').map(function(r) {
-						r[0].selected = true
-						return r;
-					}))
+					return this.set('selection', this.get('selection').map(function(s) { return {selected: true};}))
+					//return this.set('selection.*.selected', true )
 
-				this.set('rows', this.get('rows').map(function(r) {
-					delete r[0].selected;
-					return r;
-				}))
+				this.set('selection.*.selected', false )
 			}, {init: false})
 
 		},
 		select( e ) {
+			var keypath = e.resolve().split('rows').join('selection')
 
-			var is_selected = this.get( e.resolve() + '.0.selected')
-
-			if (is_selected)
-				return this.toggle( e.resolve() + '.0.selected')
+			var is_selected = this.get( keypath + '.selected')
 
 			var is_multiselect = this.get('multiselect') !== false;
 
-			if (is_multiselect)
-				return this.toggle( e.resolve() + '.0.selected')
+			if (!is_multiselect)
+				this.set('selection.*.selected', false )
 
 
-			this.set('rows.*.0.selected', false )
-			this.toggle( e.resolve() + '.0.selected')
+			if (is_selected)
+				return this.set( keypath + '.selected', false )
+			else
+				return this.set( keypath + '.selected', true )
+
 		}
 	}
 })
