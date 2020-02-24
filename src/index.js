@@ -90,9 +90,10 @@ export default Ractive.extend({
 									{{#if ~/rows[row][.field].hasOwnProperty('N')    }}{{ ~/rows[row][.field].N    }}{{/if}}
 									{{#if ~/rows[row][.field].hasOwnProperty('BOOL') }}{{ ~/rows[row][.field].BOOL }}{{/if}}
 									{{#if ~/rows[row][.field].hasOwnProperty('NULL') }}NULL{{/if}}
-									{{#if .L}}[...]{{/if}}
-									{{#if .M}}{...}{{/if}}
-
+									{{#if ~/rows[row][.field].hasOwnProperty('L')    }}[...]{{/if}}
+									{{#if ~/rows[row][.field].hasOwnProperty('M')    }}{...}{{/if}}
+									{{#if ~/rows[row][.field].hasOwnProperty('SS')   }}StringSet[..]{{/if}}
+									{{#if ~/rows[row][.field].hasOwnProperty('NS')   }}NumberSet[..]{{/if}}
 								{{else}}
 									{{.}}
 								{{/if}}
