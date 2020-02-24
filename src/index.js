@@ -15,7 +15,11 @@ export default Ractive.extend({
 
 				{{#columns:i}}
 					<div style='width:{{#if checkboxes }}calc( 100%/{{columns.length}} - {{ Math.ceil( ~/checkbox_width / columns.length) }}px ){{else}}{{Math.floor(100/columns.length)}}%{{/if}}'>
+						{{#if typeof . === "object"}}
+							{{.display}}
+						{{else}}
 						{{.}}
+						{{/if}}
 					</div>
 				{{/columns}}
 			</div>
