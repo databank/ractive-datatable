@@ -2,7 +2,6 @@
 import './less/style.less';
 
 export default Ractive.extend({
-	//isolated: true,
 	template: `
 		<div class='databank-datatable theme-{{theme}}' style='{{style}}'>
 			<div class='tabledatahead'>
@@ -36,7 +35,7 @@ export default Ractive.extend({
 				{{#rows:row}}
 				<div class='tabledatarow {{#if .[0].selected}}selected{{/if}}' on-click='selectrow'>
 					{{#if checkboxes}}
-						<div class='tabledatacell' style="width: {{checkbox_width}}px;">
+						<div class='tabledatacell check' style="width: {{checkbox_width}}px;" on-click="select">
 							<input class='input-checkbox' type='checkbox' checked={{~/rows[row][0].selected}} >
 						</div>
 					{{/if}}
@@ -78,16 +77,8 @@ export default Ractive.extend({
 	on: {
 		init() {
 
-			var ractive=this;
-
 			this.on('hrefclick', function( e ) {
-
-				var col = this.get( e.resolve() )
-
-
-				console.log("hrefclick", e.resolve(), " = ",this.get( e.resolve())  )
-				//console.log( this.get(e.resolve().split('.').slice(0,-1).join('.')) )
-				//this.fire('colclick', undefined, col.item, col.raw )
+				this.fire('href', undefined, this.get( e.resolve() + '.HREF' ) )
 			})
 			this.observe('selectall', function(n,o,keypath) {
 				if (n)
@@ -102,29 +93,22 @@ export default Ractive.extend({
 				}))
 			}, {init: false})
 
-			this.observe('rows.*.0.selected', function( n,o,kp) {
+		},
+		select( e ) {
 
-				console.log( kp, n )
+			var is_selected = this.get( e.resolve() + '.0.selected')
 
-				if (n && this.get('multiselect') === false ) {
-					var target_idx = parseInt(kp.split('.')[1]);
-					console.log('must unselect all except', target_idx )
+			if (is_selected)
+				return this.toggle( e.resolve() + '.0.selected')
 
-					setTimeout(function() {
-						ractive.set('rows', ractive.get('rows').map(function(r, idx ) {
-							if ( target_idx === idx )
-								return r; // skip
+			var is_multiselect = this.get('multiselect') !== false;
 
-							// unselect all others
-							r[0].selected = false;
-							return r;
-						}) )
-					},200)
+			if (is_multiselect)
+				return this.toggle( e.resolve() + '.0.selected')
 
 
-				}
-			}, {init: false})
-
+			this.set('rows.*.0.selected', false )
+			this.toggle( e.resolve() + '.0.selected')
 		}
 	}
 })
