@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/style.css" />
+		<link rel="stylesheet" href="../../dist/ractive-datatable.css" />
+
+		<script src="../js/async.js"></script>
+		<script src="../js/ractive-1.3.8.js"></script>
+		<script src="../../dist/ractive-datatable.js"></script>
+
+	</head>
+
+	<body>
+	</body>
+	<script>
+		var s3;
+		var ractive = new Ractive({
+			el: 'body',
+			data: function() {
+				return {
+					theme: 'windows',
+
+					is_changing: false,
+
+					columns: [
+						{ field: 'key',     display: "Key",     hide: false, },
+						{ field: 'string',  display: "String",  hide: false, },
+						{ field: 'number',  display: "Number",  hide: false, },
+						{ field: 'boolean', display: "Boolean", hide: false, },
+						{ field: 'null',    display: "Null",    hide: false, },
+						{ field: 'link',    display: "Link",    hide: false, },
+						{ field: 'dummy',   display: 'dummy',   hide: true,  },
+					],
+					rows: [
+
+						{
+							key: { S: "key1"},
+							string: { S: "Hello"  },
+							number: { N: "3.14" },
+							boolean: { BOOL: true,  },
+							null: { NULL: true,  },
+							link: { HREF: "key1", display: 'Open' },
+							dummy: {},
+						},
+						{
+							key: { S: "key2"},
+							string: { S: "World"  },
+							number: { N: "-1"   },
+							boolean: { BOOL: false, },
+							null: { NULL: true,  },
+							link: { HREF: "key1", display: 'Open' },
+							dummy: {},
+						},
+						{
+							key: { S: "key3"},
+							string: { S: "Foo Bar"},
+							number: { N: "13"   },
+							boolean: { BOOL: true,  },
+							null: { NULL: true,  },
+							link: { HREF: "key1", display: 'Open' },
+							dummy: {},
+						},
+						{
+							key: { S: "key4"},
+							string: { S: "This is a text"},
+							number: { N: "0"},
+							boolean: { BOOL: false, },
+							null: { NULL: true, },
+							link: { HREF: "key3", display: 'Open' },
+							dummy: { NULL: true, }
+						}
+					],
+					checkboxes: true,
+					multiselect: true,
+				}
+			},
+			components: {
+				'datatable': window['@databank/ractive-datatable'],
+			},
+			template: `
+
+				<div class="demo-left">
+
+
+					<label class="title">Theme</label>
+					<select value={{theme}}>
+
+						<option value="aws">AWS</option>
+
+						<option value="windows">Windows Classic</option>
+
+						<option value="atomdark">Atom Dark</option>
+						<option value="atomlight">Atom Light</option>
+
+					</select>
+
+					<label class="title">
+						<input type="checkbox" checked={{checkboxes}} /> Enable selection
+					</label>
+
+					{{#if checkboxes}}
+					<label class="title">
+						<input type="checkbox" checked={{multiselect}} /> Multi selection
+					</label>
+					{{/if}}
+
+					<label class="title">Hide columns</label>
+
+					<label>
+						<input type="checkbox" checked={{columns.0.hide}} /> Key
+					</label>
+					<label>
+						<input type="checkbox" checked={{columns.1.hide}} /> String
+					</label>
+					<label>
+						<input type="checkbox" checked={{columns.2.hide}} /> Number
+					</label>
+					<label>
+						<input type="checkbox" checked={{columns.3.hide}} /> Link
+					</label>
+					<label>
+						<input type="checkbox" checked={{columns.4.hide}} /> Dummy
+					</label>
+				</div>
+				<div class="demo-paging">
+					<div class="title"></div>
+					<div class="paging">
+						<a href="../1/">1</a>
+						<a href="../2/">2</a>
+					</div>
+				</div>
+
+				<div class="demo-right">
+					{{#if is_changing}}
+					{{else}}
+					<datatable
+						theme={{theme}}
+						columns={{columns}}
+						rows={{rows}}
+						checkboxes={{ checkboxes }}
+						multiselect={{ multiselect }}
+					/>
+					{{/if}}
+				</div>
+			`,
+			on: {
+				init: function() {
+					var ractive=this;
+					this.observe('connection', function() {
+						ractive.set({is_changing: true,})
+						setTimeout(function() {
+							ractive.set({is_changing: false,})
+						},500)
+					}, {init: false,})
+				},
+				'datatable.href': function(e, a ) {
+					alert('something clicked ' + a )
+				},
+			},
+		})
+	</script>
+</html>
