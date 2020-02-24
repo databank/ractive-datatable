@@ -87,12 +87,39 @@ export default Ractive.extend({
 								{{#if .U}}t-U{{/if}}
 								'
 								{{#if ~/rows[row][.field].hasOwnProperty('HREF') }}on-click='@this.hrefclick( ~/rows[row], . )'{{/if}}
+
+								{{#if ~/rows[row][.field].hasOwnProperty('S') }}on-dblclick='@this.clicktoedit( row, i )'{{/if}}
+								{{#if ~/rows[row][.field].hasOwnProperty('N') }}on-dblclick='@this.clicktoedit( row, i )'{{/if}}
+								{{#if ~/rows[row][.field].hasOwnProperty('BOOL') }}on-dblclick='@this.clicktoedit( row, i )'{{/if}}
+
 								>
 								{{#if typeof . === "object"}}
 									{{#if ~/rows[row][.field].hasOwnProperty('HREF') }}<a>{{~/rows[row][.field].display || ~/rows[row][.field].HREF}}</a>{{/if}}
-									{{#if ~/rows[row][.field].hasOwnProperty('S')    }}{{ ~/rows[row][.field].S    }}{{/if}}
-									{{#if ~/rows[row][.field].hasOwnProperty('N')    }}{{ ~/rows[row][.field].N    }}{{/if}}
-									{{#if ~/rows[row][.field].hasOwnProperty('BOOL') }}{{ ~/rows[row][.field].BOOL }}{{/if}}
+									{{#if ~/rows[row][.field].hasOwnProperty('S')    }}
+										{{#if ~/selection[row].cols[i].editing }}
+											<input type="text" value={{~/rows[row][.field].S}} />
+										{{else}}
+											{{ ~/rows[row][.field].S    }}
+										{{/if}}
+									{{/if}}
+									{{#if ~/rows[row][.field].hasOwnProperty('N')    }}
+										{{#if ~/selection[row].cols[i].editing }}
+											<input type="number" value={{~/rows[row][.field].N}} />
+										{{else}}
+											{{ ~/rows[row][.field].N    }}
+										{{/if}}
+									{{/if}}
+
+									{{#if ~/rows[row][.field].hasOwnProperty('BOOL') }}
+										{{#if ~/selection[row].cols[i].editing }}
+											<select value={{ ~/rows[row][.field].BOOL }}>
+												<option value="true">true</option>
+												<option value="false">false</option>
+											</select>
+										{{else}}
+											{{ ~/rows[row][.field].BOOL }}
+										{{/if}}
+									{{/if}}
 									{{#if ~/rows[row][.field].hasOwnProperty('B')    }}binary{{/if}}
 									{{#if ~/rows[row][.field].hasOwnProperty('NULL') }}NULL{{/if}}
 									{{#if ~/rows[row][.field].hasOwnProperty('L')    }}[...]{{/if}}
@@ -120,9 +147,14 @@ export default Ractive.extend({
 		selectall: false,
 		checkbox_width: 28,
 		selection: [],
+
 	} },
 	hrefclick( item, col ) {
 		this.fire('href', this, item, col )
+	},
+	clicktoedit( rowidx, colidx ) {
+		this.set('selection.' + rowidx + '.cols.' + colidx + '.editing', true  )
+		console.log('clicktoedit', rowidx, colidx )
 	},
 	on: {
 		init() {
