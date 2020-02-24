@@ -25,7 +25,7 @@
 					is_changing: false,
 
 					columns: [
-						{ field: 'key',     display: "Key",       hide: false, },
+
 						{ field: 'string',  display: "String",    hide: false, },
 						{ field: 'number',  display: "Number",    hide: false, },
 						{ field: 'boolean', display: "Boolean",   hide: false, },
@@ -42,7 +42,7 @@
 					rows: [
 
 						{
-							key: { S: "key1"},
+
 							string: { S: "Hello"  },
 							number: { N: "3.14" },
 							boolean: { BOOL: true,  },
@@ -57,7 +57,7 @@
 							dummy: {},
 						},
 						{
-							key: { S: "key2"},
+
 							string: { S: "World"  },
 							number: { N: "-1"   },
 							boolean: { BOOL: false, },
@@ -72,7 +72,7 @@
 							dummy: {},
 						},
 						{
-							key: { S: "key3"},
+
 							string: { S: "Foo Bar"},
 							number: { N: "13"   },
 							boolean: { BOOL: true,  },
@@ -87,7 +87,7 @@
 							dummy: {},
 						},
 						{
-							key: { S: "key4"},
+
 							string: { S: "This is a text"},
 							number: { N: "0"},
 							boolean: { BOOL: false, },
@@ -99,7 +99,7 @@
 							ns: { NS : [] },
 							bs: { BS : [] },
 							link: { HREF: "key3", display: 'Open' },
-							dummy: { NULL: true, }
+							dummy: { }
 						}
 					],
 					checkboxes: true,
@@ -138,21 +138,11 @@
 
 					<label class="title">Hide columns</label>
 
-					<label>
-						<input type="checkbox" checked={{columns.0.hide}} /> Key
-					</label>
-					<label>
-						<input type="checkbox" checked={{columns.1.hide}} /> String
-					</label>
-					<label>
-						<input type="checkbox" checked={{columns.2.hide}} /> Number
-					</label>
-					<label>
-						<input type="checkbox" checked={{columns.3.hide}} /> Link
-					</label>
-					<label>
-						<input type="checkbox" checked={{columns.4.hide}} /> Dummy
-					</label>
+					{{#columns}}
+						<label><input type="checkbox" checked={{.hide}} /> {{ .display || .field }}</label>
+					{{/columns}}
+
+
 				</div>
 				<div class="demo-paging">
 					<div class="title"></div>
