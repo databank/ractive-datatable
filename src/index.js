@@ -86,7 +86,7 @@ export default Ractive.extend({
 								{{#if ~/rows[row][.field].hasOwnProperty('BS')   }}t-BS{{/if}}
 								{{#if .U}}t-U{{/if}}
 								'
-								{{#if ~/rows[row][.field].hasOwnProperty('HREF') }}on-click='hrefclick'{{/if}}
+								{{#if ~/rows[row][.field].hasOwnProperty('HREF') }}on-click='@this.hrefclick( ~/rows[row], . )'{{/if}}
 								>
 								{{#if typeof . === "object"}}
 									{{#if ~/rows[row][.field].hasOwnProperty('HREF') }}<a>{{~/rows[row][.field].display || ~/rows[row][.field].HREF}}</a>{{/if}}
@@ -121,12 +121,13 @@ export default Ractive.extend({
 		checkbox_width: 28,
 		selection: [],
 	} },
+	hrefclick( item, col ) {
+		console.log( item, col )
+		this.fire('href', this, item, col )
+	},
 	on: {
 		init() {
 
-			this.on('hrefclick', function( e ) {
-				this.fire('href', undefined, this.get( e.resolve() + '.HREF' ) )
-			})
 			this.observe('selectall', function(n,o,keypath) {
 				if (n)
 					return this.set('selection', this.get('selection').map(function(s) { return {selected: true};}))

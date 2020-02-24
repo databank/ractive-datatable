@@ -175,8 +175,8 @@
 						},500)
 					}, {init: false,})
 				},
-				'datatable.href': function(e, a ) {
-					alert('something clicked ' + a )
+				'datatable.href': function( event, context, item, col ) {
+					alert('clicked ' + JSON.stringify(item, null, "\t") )
 				},
 			},
 		})
