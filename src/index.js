@@ -101,14 +101,14 @@ export default Ractive.extend({
 									{{#if ~/rows[row][.field].hasOwnProperty('HREF') }}<a>{{~/rows[row][.field].display || ~/rows[row][.field].HREF}}</a>{{/if}}
 									{{#if ~/rows[row][.field].hasOwnProperty('S')    }}
 										{{#if ~/selection[row].cols[i].editing }}
-											<input type="text" value={{~/rows[row][.field].S}} />
+											<input type="text" value={{~/rows[row][.field].S}} on-blur='@this.editfocusout( row, i )' />
 										{{else}}
 											{{ ~/rows[row][.field].S    }}
 										{{/if}}
 									{{/if}}
 									{{#if ~/rows[row][.field].hasOwnProperty('N')    }}
 										{{#if ~/selection[row].cols[i].editing }}
-											<input type="number" value={{~/rows[row][.field].N}} />
+											<input type="number" value={{~/rows[row][.field].N}} on-blur='@this.editfocusout( row, i )' />
 										{{else}}
 											{{ ~/rows[row][.field].N    }}
 										{{/if}}
