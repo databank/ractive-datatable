@@ -26,9 +26,9 @@
 
 					columns: [
 
-						{ field: 'string',  display: "String",    hide: false, },
-						{ field: 'number',  display: "Number",    hide: false, },
-						{ field: 'boolean', display: "Boolean",   hide: false, },
+						{ field: 'string',  display: "String",    hide: false, editable: true, },
+						{ field: 'number',  display: "Number",    hide: false, editable: true, },
+						{ field: 'boolean', display: "Boolean",   hide: false, editable: true, },
 						{ field: 'bin',     display: "Binary",    hide: false, },
 						{ field: 'null',    display: "Null",      hide: false, },
 						{ field: 'list',    display: "List",      hide: false, },
@@ -60,7 +60,7 @@
 
 							string: { S: "World"  },
 							number: { N: "-1"   },
-							boolean: { BOOL: "false", },
+
 							bin: { B: "",  },
 							null: { NULL: true,  },
 							list: { L: [] },

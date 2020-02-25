@@ -72,6 +72,10 @@ export default Ractive.extend({
 							<div
 								style='width:{{#if checkboxes }}calc( 100%/{{ @this.columns_length() }} - {{ Math.ceil( ~/checkbox_width / @this.columns_length() ) }}px ){{else}}{{Math.floor(100/ @this.columns_length() )}}%{{/if}}'
 								class='tabledatacell
+
+								{{#if .editable === true }}e{{/if}}
+								{{#if ~/selection[row].cols[i].editing }}editing{{/if}}
+
 								{{#if ~/rows[row][.field].hasOwnProperty('KEY')  }}t-K{{/if}}
 								{{#if ~/rows[row][.field].hasOwnProperty('HREF') }}t-HASH{{/if}}
 								{{#if ~/rows[row][.field].hasOwnProperty('S')    }}t-S{{/if}}
@@ -88,9 +92,9 @@ export default Ractive.extend({
 								'
 								{{#if ~/rows[row][.field].hasOwnProperty('HREF') }}on-click='@this.hrefclick( ~/rows[row], . )'{{/if}}
 
-								{{#if ~/rows[row][.field].hasOwnProperty('S') }}on-dblclick='@this.clicktoedit( row, i )'{{/if}}
-								{{#if ~/rows[row][.field].hasOwnProperty('N') }}on-dblclick='@this.clicktoedit( row, i )'{{/if}}
-								{{#if ~/rows[row][.field].hasOwnProperty('BOOL') }}on-dblclick='@this.clicktoedit( row, i )'{{/if}}
+								{{#if (.editable === true) && ~/rows[row][.field].hasOwnProperty('S')    }}on-dblclick='@this.clicktoedit( row, i )'{{/if}}
+								{{#if (.editable === true) && ~/rows[row][.field].hasOwnProperty('N')    }}on-dblclick='@this.clicktoedit( row, i )'{{/if}}
+								{{#if (.editable === true) && ~/rows[row][.field].hasOwnProperty('BOOL') }}on-dblclick='@this.clicktoedit( row, i )'{{/if}}
 
 								>
 								{{#if typeof . === "object"}}
@@ -112,7 +116,7 @@ export default Ractive.extend({
 
 									{{#if ~/rows[row][.field].hasOwnProperty('BOOL') }}
 										{{#if ~/selection[row].cols[i].editing }}
-											<select value={{ ~/rows[row][.field].BOOL }}>
+											<select value={{ ~/rows[row][.field].BOOL }} on-blur='@this.editfocusout( row, i )' >
 												<option value="true">true</option>
 												<option value="false">false</option>
 											</select>
@@ -153,9 +157,33 @@ export default Ractive.extend({
 		this.fire('href', this, item, col )
 	},
 	clicktoedit( rowidx, colidx ) {
+		this.set('selection.*.cols.*.editing', false  )
+
 		this.set('selection.' + rowidx + '.cols.' + colidx + '.editing', true  )
-		console.log('clicktoedit', rowidx, colidx )
+
+		try {
+
+			if (this.el.getElementsByTagName("select"))
+				this.el.getElementsByTagName("select")[0].focus()
+		} catch (e) {}
+
+		try {
+			if (this.el.querySelectorAll("input[type=number]"))
+				this.el.querySelectorAll("input[type=number]")[0].focus()
+
+		} catch (e) {}
+
+		try {
+			if (this.el.querySelectorAll("input[type=text]"))
+				this.el.querySelectorAll("input[type=text]")[0].focus()
+
+		} catch (e) {}
+
 	},
+	editfocusout( rowidx, colidx ) {
+		this.set('selection.' + rowidx + '.cols.' + colidx + '.editing', false  )
+	},
+
 	on: {
 		init() {
 
