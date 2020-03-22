@@ -1,0 +1,61 @@
+
+.databank-datatable {display: block;position: absolute;top: 0px;left:0px;right: 0px;bottom: 0px;overflow: hidden;}
+
+
+.databank-datatable .tabledatahead,
+.databank-datatable .tabledatarow { display: flex;width: 100%;justify-content: stretch}
+
+
+.databank-datatable .tabledatahead {position: absolute;top: 0px;left: 0px;right: 0px;height: 20px;}
+
+
+.databank-datatable .tabledatarow .zmdi.selectrow {font-size: 14px;}
+
+.databank-datatable .tabledatahead > div,
+.databank-datatable .tabledatarow .tabledatacell {display: flex;height: 20px;align-items: center;overflow: hidden;white-space: nowrap;padding-left: 6px;position: relative;}
+.databank-datatable .tabledatarow .tabledatacell:last-child {border-right: 0px !important;}
+
+
+
+/*.databank-datatable .tabledatarow .tabledatacell:before {content: ' ';position:absolute;top: 0px;left:  0px;bottom: 0px;width: 5px;}*/
+/*.databank-datatable .tabledatarow .tabledatacell:after  {content: ' ';position:absolute;top: 0px;right: 0px;bottom: 0px;width: 5px;}*/
+
+.databank-datatable .tabledatarow .tabledatacell.check:after {content: ' ';position: absolute;top: 0px;left:0px;right:0px;bottom: 0px;}
+
+
+.databank-datatable .tabledatacontent {position: absolute;top: 21px;left: 0px;right: 0px;bottom: 0px;overflow-x: auto;}
+
+.databank-datatable .tabledatahead > div {font-size: 12px;}
+.databank-datatable .tabledatarow .tabledatacell {font-size: 11px;}
+
+.databank-datatable {border-top: 1px solid transparent;}
+
+
+
+
+.databank-datatable .tabledatarow .tabledatacell.e {cursor: text;}
+.databank-datatable .tabledatarow .tabledatacell.editing select,
+.databank-datatable .tabledatarow .tabledatacell.editing input {box-shadow: inset 1px 1px 3px rgba(0,0,0,.4)}
+
+.databank-datatable .tabledatarow .tabledatacell.t-K {color: #8ea7aa;}
+.databank-datatable .tabledatarow .tabledatacell.t-HASH {color:#004b91;cursor: pointer;}
+.databank-datatable .tabledatarow .tabledatacell.t-HASH:hover a {text-decoration: underline;}
+.databank-datatable .tabledatarow .tabledatacell.t-S {color: #a79b9b;}
+.databank-datatable .tabledatarow .tabledatacell.t-N {color: green;}
+.databank-datatable .tabledatarow .tabledatacell.t-BOOL {color: #ff7676;}
+.databank-datatable .tabledatarow .tabledatacell.t-B {color: #a79b9b;font-style: italic;text-decoration: underline;text-decoration-style: dashed; }
+.databank-datatable .tabledatarow .tabledatacell.t-NULL {color: grey}
+.databank-datatable .tabledatarow .tabledatacell.t-L {}
+.databank-datatable .tabledatarow .tabledatacell.t-M {}
+.databank-datatable .tabledatarow .tabledatacell.t-SS {color: #a79b9b;font-style: italic;text-decoration: underline;text-decoration-style: dashed;}
+.databank-datatable .tabledatarow .tabledatacell.t-NS {color: #a79b9b;font-style: italic;text-decoration: underline;text-decoration-style: dashed;}
+.databank-datatable .tabledatarow .tabledatacell.t-BS {color: #a79b9b;font-style: italic;text-decoration: underline;text-decoration-style: dashed;}
+.databank-datatable .tabledatarow .tabledatacell.t-U {background-size: 13px 13px;background-image:linear-gradient(90deg, fade(#000, 20% ) 50%, transparent 50%),linear-gradient(       fade(#000, 20% ) 50%, transparent 50%);}
+
+.databank-datatable .tabledatarow .tabledatacell > select {position: absolute;left: 0px;top:0px;width: 100%;height: 100%;-webkit-border-radius: 0;border-radius: 0;-webkit-appearance: none;border: 0px;outline: none;}
+.databank-datatable .tabledatarow .tabledatacell > input[type=text] {position: absolute;left: 0px;top:0px;width: 100%;height: 100%;-webkit-border-radius: 0;border-radius: 0;-webkit-appearance: none;border: 0px;outline: none;}
+.databank-datatable .tabledatarow .tabledatacell > input[type=number] {position: absolute;left: 0px;top:0px;width: 100%;height: 100%;-webkit-border-radius: 0;border-radius: 0;-webkit-appearance: none;border: 0px;outline: none;}
+
+
+
+.databank-datatable .tabledatarow.selected:hover .tabledatacell {color: #fff;}
