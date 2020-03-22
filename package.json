@@ -1,6 +1,6 @@
 {
 	"name": "@databank/ractive-datatable",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "ractivejs component ",
 	"main": "dist/ractive-datatable.min.js",
 	"scripts": {
