@@ -59,7 +59,7 @@ export default Ractive.extend({
 				{{#rows:row}}
 
 
-				<div class='tabledatarow {{#if .[0].selected}}selected{{/if}}' on-click='selectrow'>
+				<div class='tabledatarow {{#if ~/selection[row].selected}}selected{{/if}}' on-click='selectrow'>
 					{{#if checkboxes}}
 						<div class='tabledatacell check' style="width: {{checkbox_width}}px;" on-click="selectcell">
 							<input class='input-checkbox' type='checkbox' checked={{~/selection[row].selected}} >
