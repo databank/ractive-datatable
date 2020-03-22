@@ -61,7 +61,7 @@ export default Ractive.extend({
 
 				<div class='tabledatarow {{#if .[0].selected}}selected{{/if}}' on-click='selectrow'>
 					{{#if checkboxes}}
-						<div class='tabledatacell check' style="width: {{checkbox_width}}px;" on-click="select">
+						<div class='tabledatacell check' style="width: {{checkbox_width}}px;" on-click="selectcell">
 							<input class='input-checkbox' type='checkbox' checked={{~/selection[row].selected}} >
 						</div>
 					{{/if}}
@@ -183,20 +183,31 @@ export default Ractive.extend({
 	editfocusout( rowidx, colidx ) {
 		this.set('selection.' + rowidx + '.cols.' + colidx + '.editing', false  )
 	},
-
+	select_event() {
+		var ractive=this;
+		var ret = []
+		var selection = this.get('selection').map(function( v, k, arr ) {
+			if (v.selected === true )
+				ret.push( ractive.get('rows.' + k ) )
+		})
+		this.fire('select', ret )
+	},
 	on: {
 		init() {
 
 			this.observe('selectall', function(n,o,keypath) {
-				if (n)
-					return this.set('selection', this.get('selection').map(function(s) { return {selected: true};}))
-					//return this.set('selection.*.selected', true )
+				if (n) {
+					this.set('selection', this.get('selection').map(function(s) { return {selected: true};}))
+					this.select_event()
+					return;
+				}
 
 				this.set('selection.*.selected', false )
+				this.select_event()
 			}, {init: false})
 
 		},
-		select( e ) {
+		selectcell( e ) {
 			var keypath = e.resolve().split('rows').join('selection')
 
 			var is_selected = this.get( keypath + '.selected')
@@ -208,9 +219,11 @@ export default Ractive.extend({
 
 
 			if (is_selected)
-				return this.set( keypath + '.selected', false )
+				this.set( keypath + '.selected', false )
 			else
-				return this.set( keypath + '.selected', true )
+				this.set( keypath + '.selected', true )
+
+			this.select_event()
 
 		}
 	}
