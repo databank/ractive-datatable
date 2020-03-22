@@ -23,6 +23,7 @@
 					theme: 'windows',
 
 					is_changing: false,
+					selection: [],
 
 					columns: [
 
@@ -150,6 +151,9 @@
 						<a href="../1/">1</a>
 						<a href="../2/">2</a>
 					</div>
+					<div class="selection">
+						{{selection.length}} items selected
+					</div>
 				</div>
 
 				<div class="demo-right">
@@ -177,6 +181,9 @@
 				},
 				'datatable.href': function( event, context, item, col ) {
 					alert('clicked ' + JSON.stringify(item, null, "\t") )
+				},
+				'datatable.select': function( e, selection ) {
+					this.set('selection', selection )
 				},
 			},
 		})
