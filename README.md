@@ -23,7 +23,6 @@
  - [x] selection
  -  - [x] multiselect
  -  - [x] enable/disable selection
- -  - [ ] manual selection api for parent
 
  - [ ] columns
  -  - [x] hide columns
@@ -50,3 +49,8 @@
  -  - [ ] builtin preview binary as pdf
  -  - [ ] builtin preview binary as base64
  -  - [ ] builtin preview binary as hex view
+
+ - [x] api
+ -  - [x] select all
+ -  - [x] select none
+ -  - [ ] row selection ( select/deselect/toggle )
