@@ -1,0 +1,15 @@
+
+body {background-color: #9694ff;font-family: sans-serif;color: #18169a;}
+.demo-left {position: absolute;top: 70px;left: 30px;width: 210px;bottom: 50px;}
+.demo-left label {display: block;color: #18169a;font-size: 13px;}
+.demo-left label.title {font-weight: bold;margin-top: 15px;}
+.demo-left input[type=text] {box-sizing: border-box;padding: 5px;border: 1px solid #18169a;width: 100%;}
+.demo-left select {box-sizing: border-box;width: 100%;padding: 5px;border-radius: 0px;height: 25px;border: 1px solid #18169a;-webkit-appearance: none;}
+.demo-left select {-webkit-border-radius: 0;	background-image: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'><path fill='%23444' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>");background-position: 100% 50%;background-repeat: no-repeat;}
+
+.demo-paging {position: absolute;top: 10px;left: 260px;right: 10px;height: 50px;}
+.demo-paging .title {line-height: 30px;height: 30px;}
+.demo-paging .paging {float: left;}
+.demo-paging .paging a { display: inline-block;border: 1px solid #18169a;background-color: #fff;border-radius: 2px;padding: 3px 8px;text-decoration: none;color: #18169a; }
+.demo-paging .selection {float: right;line-height: 26px;color: #fff;margin-right: 40px;}
+.demo-right {position: absolute;top: 70px;left: 260px;right: 50px;bottom: 50px;}
