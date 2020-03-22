@@ -149,7 +149,7 @@
 						<a href="../1/">1</a>
 					</div>
 					<div class="selection">
-						{{selection.length}} items selected
+						{{selection.length}} items selected | <a on-click="selectall">Select All</a> | <a on-click="selectnone">Select None</a>
 					</div>
 				</div>
 
@@ -182,6 +182,12 @@
 				'datatable.select': function( e, selection ) {
 					this.set('selection', selection )
 				},
+				selectall() {
+					this.findComponent('datatable').select_all()
+				},
+				selectnone() {
+					this.findComponent('datatable').select_none()
+				}
 			},
 		})
 	</script>

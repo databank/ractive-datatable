@@ -288,6 +288,17 @@ __webpack_require__.r(__webpack_exports__);
 		});
 		this.fire('select', ret);
 	},
+
+	select_all() {
+		this.set('selection', this.get('selection').map(function (s) {
+			return { selected: true };
+		}));
+		this.select_event();
+	},
+	select_none() {
+		this.set('selection.*.selected', false);
+		this.select_event();
+	},
 	on: {
 		init() {
 
