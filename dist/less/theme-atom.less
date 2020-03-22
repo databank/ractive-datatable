@@ -1,0 +1,31 @@
+.databank-datatable.theme-atom {
+	& {
+
+
+
+
+		@databank-datatable-background: @overlay-background-color;
+		@databank-datatable-border-top: 0px;
+		@databank-datatable-border-right: 0px;
+		@databank-datatable-border-bottom: 0px;
+		@databank-datatable-border-left: 0px;
+		@databank-datatable-box-shodow: none;
+
+		@databank-datatable-head-background: @app-background-color;
+		@databank-datatable-head-border-bottom: 1px solid @pane-item-border-color;
+		@databank-datatable-head-cell-border-top: 1px solid transparent;
+		@databank-datatable-head-cell-border-right: 1px solid @pane-item-border-color;
+		@databank-datatable-head-cell-border-bottom: 1px solid transparent;
+		@databank-datatable-head-cell-border-left: 1px solid transparent;
+		@databank-datatable-head-cell-color: @text-color;
+
+		@databank-datatable-row-border-bottom: 1px solid @pane-item-border-color;
+		@databank-datatable-row-hover-background: @background-color-highlight;
+		@databank-datatable-row-selected-background: @background-color-selected;
+		@databank-datatable-row-selected-hover-background: @background-color-info !important;
+		@databank-datatable-cell-border-right: 1px solid @pane-item-border-color;
+		@databank-datatable-cell-hover-color: @text-color-highlight !important;
+
+		@import (multiple,reference) "theme";
+	}
+}
