@@ -248,7 +248,7 @@ content tabcontent .tabledata .tabledatarow.selected .tabledatacell {color: @tex
 content tabcontent .tabledata .tabledatarow:hover .tabledatacell.t-HASH {color:@text-color-highlight;}
 content tabcontent .tabledata .tabledatarow.selected .tabledatacell {color: @text-color-selected;}
 */
-  background-color: #242b3a;
+  background-color: hsl(220, 24%, 20%);
   border-top: 0px;
   border-right: 0px;
   border-bottom: 0px;
@@ -290,7 +290,7 @@ content tabcontent .tabledata .tabledatarow.selected .tabledatacell {color: @tex
 content tabcontent .tabledata .tabledatarow:hover .tabledatacell.t-HASH {color:@text-color-highlight;}
 content tabcontent .tabledata .tabledatarow.selected .tabledatacell {color: @text-color-selected;}
 */
-  background-color: #f2f2f2;
+  background-color: hsl(220, 1%, 98%);
   border-top: 0px;
   border-right: 0px;
   border-bottom: 0px;
