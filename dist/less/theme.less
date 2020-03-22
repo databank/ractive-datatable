@@ -1,0 +1,22 @@
+
+/*
+content tabcontent .tabledata .tabledatarow:hover .tabledatacell.t-HASH {color:@text-color-highlight;}
+content tabcontent .tabledata .tabledatarow.selected .tabledatacell {color: @text-color-selected;}
+*/
+
+& { background-color: @databank-datatable-background;}
+
+& {border-top: @databank-datatable-border-top;border-right: @databank-datatable-border-right;border-bottom: @databank-datatable-border-bottom;border-left: @databank-datatable-border-left;}
+& {box-shadow: @databank-datatable-box-shodow;}
+& .tabledatahead {background: @databank-datatable-head-background;border-bottom: @databank-datatable-head-border-bottom;}
+& .tabledatahead {color: @databank-datatable-head-cell-color;}
+
+& .tabledatahead > div {border-right: @databank-datatable-head-cell-border-right;border-left: @databank-datatable-head-cell-border-left;}
+
+
+& .tabledatarow {border-bottom: @databank-datatable-row-border-bottom;}
+& .tabledatarow:hover {background-color: @databank-datatable-row-hover-background;}
+& .tabledatarow:hover .tabledatacell {color: @databank-datatable-cell-hover-color;}
+& .tabledatarow.selected {background-color: @databank-datatable-row-selected-background;}
+& .tabledatarow.selected:hover {background-color: @databank-datatable-row-selected-hover-background;}
+& .tabledatarow .tabledatacell {border-right: @databank-datatable-cell-border-right;border-left: 1px solid transparent;}
