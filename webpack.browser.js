@@ -52,6 +52,14 @@ module.exports = {
 	},
 	plugins: [
 		new MiniCssExtractPlugin({ filename: "[name].css" }), // { filename: "[name].[contentHash].css" }
+
+		new CopyPlugin([
+			{ from: 'less/theme.less', to: 'less/theme.less' },
+			{ from: 'less/common.less', to: 'less/common.less' },
+			{ from: 'less/theme-windows.less', to: 'less/theme-windows.less' },
+			{ from: 'less/theme-aws.less', to: 'less/theme-aws.less' },
+			{ from: 'less/theme-atom.less', to: 'less/theme-atom.less' },
+		]),
 	],
 	module: {
 		rules: [
